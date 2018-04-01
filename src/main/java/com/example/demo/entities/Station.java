@@ -15,6 +15,8 @@ public class Station  implements Serializable{
 	private Long idStation;
 	private String nomStation;
 	private int distanceFromBar;
+	private Double x;
+	private Double y;
 	
 	
 	@ManyToOne
@@ -28,18 +30,22 @@ public class Station  implements Serializable{
 	}
 
 
-	public Station(String nomStation, int distanceFromBar, Metro metro) {
+	public Station(String nomStation, int distanceFromBar, Double x, Double y) {
 		super();
 		this.nomStation = nomStation;
 		this.distanceFromBar = distanceFromBar;
-		this.metro = metro;
+		this.x = x;
+		this.y = y;
 	}
 
 
-	public Station(String nomStation, int distanceFromBar) {
+	public Station(String nomStation, int distanceFromBar, Double x, Double y, Metro metro) {
 		super();
 		this.nomStation = nomStation;
 		this.distanceFromBar = distanceFromBar;
+		this.x = x;
+		this.y = y;
+		this.metro = metro;
 	}
 
 
@@ -73,6 +79,26 @@ public class Station  implements Serializable{
 	}
 
 
+	public Double getX() {
+		return x;
+	}
+
+
+	public void setX(Double x) {
+		this.x = x;
+	}
+
+
+	public Double getY() {
+		return y;
+	}
+
+
+	public void setY(Double y) {
+		this.y = y;
+	}
+
+
 	public Metro getMetro() {
 		return metro;
 	}
@@ -83,5 +109,5 @@ public class Station  implements Serializable{
 	}
 	
 	
-	
+
 }

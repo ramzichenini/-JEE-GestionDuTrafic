@@ -16,6 +16,7 @@ public class Panne implements Serializable {
 	private Long idPanne;
 	private String type;
 	private int tempsEstime;
+	private int ligne;
 	
 	
 	@ManyToOne
@@ -29,17 +30,11 @@ public class Panne implements Serializable {
 	}
 
 
-	public Panne(String type, int tempsEstime) {
+	public Panne(String type, int tempsEstime, int ligne, Conducteur conducteur) {
 		super();
 		this.type = type;
 		this.tempsEstime = tempsEstime;
-	}
-
-
-	public Panne(String type, int tempsEstime, Conducteur conducteur) {
-		super();
-		this.type = type;
-		this.tempsEstime = tempsEstime;
+		this.ligne = ligne;
 		this.conducteur = conducteur;
 	}
 
@@ -74,6 +69,16 @@ public class Panne implements Serializable {
 	}
 
 
+	public int getLigne() {
+		return ligne;
+	}
+
+
+	public void setLigne(int ligne) {
+		this.ligne = ligne;
+	}
+
+
 	public Conducteur getConducteur() {
 		return conducteur;
 	}
@@ -82,6 +87,9 @@ public class Panne implements Serializable {
 	public void setConducteur(Conducteur conducteur) {
 		this.conducteur = conducteur;
 	}
+
+
+	
 	
 	
 	

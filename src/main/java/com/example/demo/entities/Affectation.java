@@ -10,47 +10,52 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Affectation1 implements Serializable{
+public class Affectation implements Serializable{
 	@Id
 	@GeneratedValue
-	private Long idAff1;
+	private Long idAff;
 	private String jour;
-	private int ligne;
 	private Date tempsDebut;
 	private Date tempsFin;
+	private int ordre; // egale 1 ou  2 
 	
 	@ManyToOne
 	@JoinColumn(name="CODE_COND")
 	private Conducteur conducteur;
+	
+	@ManyToOne
+	@JoinColumn(name="CODE_METRO")
+	private Metro metro;
 
-	public Affectation1() {
+	public Affectation() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Affectation1(String jour, int ligne, Date tempsDebut, Date tempsFin) {
+	public Affectation(String jour, Date tempsDebut, Date tempsFin, int ordre, Conducteur conducteur, Metro metro) {
 		super();
 		this.jour = jour;
-		this.ligne = ligne;
 		this.tempsDebut = tempsDebut;
 		this.tempsFin = tempsFin;
-	}
-
-	public Affectation1(String jour, int ligne, Date tempsDebut, Date tempsFin, Conducteur conducteur) {
-		super();
-		this.jour = jour;
-		this.ligne = ligne;
-		this.tempsDebut = tempsDebut;
-		this.tempsFin = tempsFin;
+		this.ordre = ordre;
 		this.conducteur = conducteur;
+		this.metro = metro;
 	}
 
-	public Long getIdAff1() {
-		return idAff1;
+	public Affectation(String jour, Date tempsDebut, Date tempsFin, int ordre) {
+		super();
+		this.jour = jour;
+		this.tempsDebut = tempsDebut;
+		this.tempsFin = tempsFin;
+		this.ordre = ordre;
 	}
 
-	public void setIdAff1(Long idAff1) {
-		this.idAff1 = idAff1;
+	public Long getIdAff() {
+		return idAff;
+	}
+
+	public void setIdAff(Long idAff) {
+		this.idAff = idAff;
 	}
 
 	public String getJour() {
@@ -59,14 +64,6 @@ public class Affectation1 implements Serializable{
 
 	public void setJour(String jour) {
 		this.jour = jour;
-	}
-
-	public int getLigne() {
-		return ligne;
-	}
-
-	public void setLigne(int ligne) {
-		this.ligne = ligne;
 	}
 
 	public Date getTempsDebut() {
@@ -85,6 +82,14 @@ public class Affectation1 implements Serializable{
 		this.tempsFin = tempsFin;
 	}
 
+	public int getOrdre() {
+		return ordre;
+	}
+
+	public void setOrdre(int ordre) {
+		this.ordre = ordre;
+	}
+
 	public Conducteur getConducteur() {
 		return conducteur;
 	}
@@ -92,7 +97,15 @@ public class Affectation1 implements Serializable{
 	public void setConducteur(Conducteur conducteur) {
 		this.conducteur = conducteur;
 	}
-	
+
+	public Metro getMetro() {
+		return metro;
+	}
+
+	public void setMetro(Metro metro) {
+		this.metro = metro;
+	}
+
 	
 
 }
