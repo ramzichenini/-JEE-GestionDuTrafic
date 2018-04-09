@@ -10,12 +10,12 @@ public interface ITraficMetier {
 	
 	// les fonctions de consultation
 	
-	public Conducteur consulterCond(Long IdCond);
-	public Metro consulterMetro(Long idMet);
+	//public Conducteur consulterCond(Long IdCond);
+	//public Metro consulterMetro(Long idMet);
 	
 	// les besoins du conducteurs
 	
-	public List<Tournee> consulterPlan(Long idCond);
+	//public List<Tournee> consulterPlan(Long idCond);
 	
 	
 	// les besoins de l'admin

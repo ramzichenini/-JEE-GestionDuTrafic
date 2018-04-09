@@ -3,19 +3,25 @@ package com.example.demo.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.joda.time.DateTime;
 @Entity
 public class Tournee implements Serializable {
 	
 	@Id
 	@GeneratedValue
 	private Long idTournee;
-	private Date tempsDepBar;
-	private Date tempsDepTer;
+	@Column(name="tempsDepBar", length=10000)
+	private DateTime tempsDepBar;
+	@Column(name="tempsDepTer", length=10000)
+	private DateTime tempsDepTer;
+	
 	
 	
 	@ManyToOne
@@ -27,14 +33,14 @@ public class Tournee implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Tournee(Date tempsDepBar, Date tempsDepTer, Metro metro) {
+	public Tournee(DateTime tempsDepBar, DateTime tempsDepTer, Metro metro) {
 		super();
 		this.tempsDepBar = tempsDepBar;
 		this.tempsDepTer = tempsDepTer;
 		this.metro = metro;
 	}
 
-	public Tournee(Date tempsDepBar, Date tempsDepTer) {
+	public Tournee(DateTime tempsDepBar, DateTime tempsDepTer) {
 		super();
 		this.tempsDepBar = tempsDepBar;
 		this.tempsDepTer = tempsDepTer;
@@ -48,19 +54,19 @@ public class Tournee implements Serializable {
 		this.idTournee = idTournee;
 	}
 
-	public Date getTempsDepBar() {
+	public DateTime getTempsDepBar() {
 		return tempsDepBar;
 	}
 
-	public void setTempsDepBar(Date tempsDepBar) {
+	public void setTempsDepBar(DateTime tempsDepBar) {
 		this.tempsDepBar = tempsDepBar;
 	}
 
-	public Date getTempsDepTer() {
+	public DateTime getTempsDepTer() {
 		return tempsDepTer;
 	}
 
-	public void setTempsDepTer(Date tempsDepTer) {
+	public void setTempsDepTer(DateTime tempsDepTer) {
 		this.tempsDepTer = tempsDepTer;
 	}
 

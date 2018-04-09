@@ -19,13 +19,15 @@ public class Conducteur  implements Serializable {
 	private String nomCond;
 	private String prenomCond;
 	private Double tel;
-	private Date dateConnexionCond;
-	private Boolean EnConge;
+	
 	private String username;
 	private String password;
+	private String EnConge;
+	
+	
 	private int nbr; // nombre de notification restant à lire 
 	
-	
+	private Date dateConnexionCond;
 	
 	
 	@OneToMany(mappedBy="conducteur", fetch=FetchType.LAZY)
@@ -42,7 +44,7 @@ public class Conducteur  implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Conducteur(String nomCond, String prenomCond, Double tel, Boolean enConge, String username, String password,
+	public Conducteur(String nomCond, String prenomCond, Double tel, String enConge, String username, String password,
 			int nbr) {
 		super();
 		this.nomCond = nomCond;
@@ -54,7 +56,7 @@ public class Conducteur  implements Serializable {
 		this.nbr = nbr;
 	}
 
-	public Conducteur(String nomCond, String prenomCond, Double tel, Boolean enConge, String username, String password,
+	public Conducteur(String nomCond, String prenomCond, Double tel, String enConge, String username, String password,
 			int nbr, Collection<Affectation> affectations, Collection<Panne> pannes,
 			Collection<Statistique> statistiques) {
 		super();
@@ -110,11 +112,11 @@ public class Conducteur  implements Serializable {
 		this.dateConnexionCond = dateConnexionCond;
 	}
 
-	public Boolean getEnConge() {
+	public String getEnConge() {
 		return EnConge;
 	}
 
-	public void setEnConge(Boolean enConge) {
+	public void setEnConge(String enConge) {
 		EnConge = enConge;
 	}
 

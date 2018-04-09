@@ -3,11 +3,14 @@ package com.example.demo.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.joda.time.DateTime;
 
 @Entity
 public class Affectation implements Serializable{
@@ -15,8 +18,10 @@ public class Affectation implements Serializable{
 	@GeneratedValue
 	private Long idAff;
 	private String jour;
-	private Date tempsDebut;
-	private Date tempsFin;
+	@Column(name="tempsDebut", length=10000)
+	private DateTime tempsDebut;
+	@Column(name="tempsFin", length=10000)
+	private DateTime tempsFin;
 	private int ordre; // egale 1 ou  2 
 	
 	@ManyToOne
@@ -32,7 +37,7 @@ public class Affectation implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Affectation(String jour, Date tempsDebut, Date tempsFin, int ordre, Conducteur conducteur, Metro metro) {
+	public Affectation(String jour, DateTime tempsDebut, DateTime tempsFin, int ordre, Conducteur conducteur, Metro metro) {
 		super();
 		this.jour = jour;
 		this.tempsDebut = tempsDebut;
@@ -42,7 +47,7 @@ public class Affectation implements Serializable{
 		this.metro = metro;
 	}
 
-	public Affectation(String jour, Date tempsDebut, Date tempsFin, int ordre) {
+	public Affectation(String jour, DateTime tempsDebut, DateTime tempsFin, int ordre) {
 		super();
 		this.jour = jour;
 		this.tempsDebut = tempsDebut;
@@ -66,19 +71,19 @@ public class Affectation implements Serializable{
 		this.jour = jour;
 	}
 
-	public Date getTempsDebut() {
+	public DateTime getTempsDebut() {
 		return tempsDebut;
 	}
 
-	public void setTempsDebut(Date tempsDebut) {
+	public void setTempsDebut(DateTime tempsDebut) {
 		this.tempsDebut = tempsDebut;
 	}
 
-	public Date getTempsFin() {
+	public DateTime getTempsFin() {
 		return tempsFin;
 	}
 
-	public void setTempsFin(Date tempsFin) {
+	public void setTempsFin(DateTime tempsFin) {
 		this.tempsFin = tempsFin;
 	}
 
