@@ -1,7 +1,9 @@
 package com.example.demo;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -14,12 +16,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import com.example.demo.dao.AffectationRepository;
 import com.example.demo.dao.ConducteurRepository;
 import com.example.demo.dao.MetroRepository;
+import com.example.demo.dao.RolesRepository;
 import com.example.demo.dao.TourneeRepository;
+import com.example.demo.dao.UsersRepository;
 import com.example.demo.entities.Affectation;
 import com.example.demo.entities.Conducteur;
 import com.example.demo.entities.Metro;
+import com.example.demo.entities.Roles;
 import com.example.demo.entities.Tournee;
-
+import com.example.demo.entities.Users;
 import com.example.demo.metier.ITraficMetier;
 
 
@@ -29,6 +34,16 @@ public class GestionDuTraficApplication implements CommandLineRunner{
 	
 	// @Autowired
 	// private ITraficMetier it ; 
+	
+	
+	
+	@Autowired
+	private UsersRepository usersRepository;
+	@Autowired
+	private RolesRepository rolesRepository;
+	
+	private Roles r= new Roles();
+	private Users u= new Users();
 	
 	@Autowired
 	 private ConducteurRepository  conducteurRepository;
@@ -48,9 +63,33 @@ public class GestionDuTraficApplication implements CommandLineRunner{
 	public void run(String... arg0) throws Exception {
 	
 		
+		/*
+		
+		// mot de pass admin
+		
+		r.setRole("ADMIN");
+		u.setActive(1);
+		u.setPassword("ok");
+		u.setUsername("admin");
+		
+		 Set<Roles> setR = new HashSet<Roles>();
+		 setR.add(r);
+	     
+	     Set<Users> setU = new HashSet<Users>();
+	     setU.add(u);
+		
+	     u.setRoles(setR);
+		
+	     r.setUsers(setU);
+		
+		usersRepository.save(u);
+		rolesRepository.save(r);
+		
+		
+		
 		// remplissage du bade de données
 		
-		/*
+		
 	
 		Conducteur cnd=conducteurRepository.save( new Conducteur("ramzi", "ch", 235.2 ," ttgt", "ramzich", "hjk66", 2));
 		

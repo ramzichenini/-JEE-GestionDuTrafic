@@ -3,6 +3,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,13 +24,27 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.ConducteurRepository;
-
+import com.example.demo.dao.RolesRepository;
+import com.example.demo.dao.UsersRepository;
 import com.example.demo.entities.Conducteur;
+import com.example.demo.entities.Roles;
+import com.example.demo.entities.Users;
+
 
 
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController {
+	
+	@Autowired
+	private UsersRepository usersRepository;
+	@Autowired
+	private RolesRepository rolesRepository;
+	
+	private Roles r= new Roles();
+	private Users u= new Users();
+	
+	
 	@Autowired
 	private ConducteurRepository conducteurRepository ;
 	@Value("${dir.images}")
@@ -73,6 +91,24 @@ public class AdminController {
 	
 		
 		conducteurRepository.save(cd);
+		r.setRole("COND");
+		u.setActive(1);
+		u.setPassword(cd.getPassword());
+		u.setUsername(cd.getUsername());
+		
+		 Set<Roles> setR = new HashSet<Roles>();
+		 setR.add(r);
+	     
+	     Set<Users> setU = new HashSet<Users>();
+	     setU.add(u);
+		
+	     u.setRoles(setR);
+		
+	     r.setUsers(setU);
+		
+		usersRepository.save(u);
+		rolesRepository.save(r);
+		
 		
 		if(!(file.isEmpty() )) {
 			

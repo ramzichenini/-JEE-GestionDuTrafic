@@ -26,101 +26,46 @@
 
 
 <div class="container spacer"   > 
+
 <table class="table table-striped">
 		<thead>
 			<tr>
-				<th><img th:src="@{/boutons/Plan.png}" /></th> 
+				<th>
+				<a th:href="@{admin/Index}">
+				<img th:src="@{/boutonsAdmin/GestionConds.png}" />
+				</a>
+				</th> 
 				
-				<th><img th:src="@{/boutons/notification.png}" /></th> 
+				<th><img th:src="@{/boutonsAdmin/trafic.png}" /></th> 
 				
-				<th><img th:src="@{/boutons/panne.png}" /></th> 
-				
-				
-				<!-- <th> 
-				
-				</th> -->
-				
+				<th><img th:src="@{/boutonsAdmin/Plans.png}" /></th> 
 				
 			</tr>
 		</thead>
 			
 </table>
 
+<table class="table table-striped">
+		<thead>
+			<tr>
+				<th><img th:src="@{/boutonsAdmin/recs.png}" /></th> 
+				
+				<th><img th:src="@{/boutonsAdmin/pann.png}" /></th> 
+				
+				<th><img th:src="@{/boutonsAdmin/AjNotif.png}" /></th> 
+				
+			</tr>
+		</thead>
+			
+</table>
 
-		<div>
-		
-		<p>
 		
 		
 		
 		
-		</p>
 		
-		</div>
-		
-		<div  class="col-md-3">	    
-			<div class="panel panel-primary" >
-				<div class="panel-heading">accueil admmin</div>
-				<div class="panel-body">
-				
-				<div>
-					<label>Client:</label>
-					
-				</div>
-				
-				<div>
-					<label>Code:</label>
-					
-				</div>
-				
-				
-				</div>
-			</div>
-		</div>	
-		
-		<div  class="col-md-5">	
-			<div class="panel panel-primary" >
-				<div class="panel-heading">plan</div>
-				<div class="panel-body">
-				
-				<div>
-					<label>Client:</label>
-					
-				</div>
-				
-				<div>
-					<label>Code:</label>
-					
-				</div>
-				
-				
-				</div>
-			</div>
-		</div>	
-		
-		<div  class="col-md-4">	
-			
-				
-				
-				
-				<object type="application/x-shockwave-flash"  th:data="@{/swf/clock.swf}" width="200" height="250">
-					
-					<param name="quality" value="high" />
-				</object>
-				
-				
-				
-			
-			
-		</div>	
-			
-			
-			    
-				    
-		</div>
 
-
-
+</div>
 
 
 </body>

@@ -20,13 +20,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.ConducteurRepository;
-
+import com.example.demo.dao.PanneRepository;
 import com.example.demo.entities.Conducteur;
+import com.example.demo.entities.Panne;
 
 
 @Controller
 @RequestMapping(value="/Cond")
 public class CondController {
+	
+	@Autowired
+	private PanneRepository panneRepository;
+	
 	@Autowired
 	private ConducteurRepository conducteurRepository ;
 	@Value("${dir.images}")
@@ -34,5 +39,26 @@ public class CondController {
 	
 	
 	
-
+	@RequestMapping(value="/condAccueil")
+	public String user(){
+	    return "condAccueil";
+	}
+	
+	
+	
+	@RequestMapping(value="/formPanne" , method=RequestMethod.GET)
+	public String formConducteur(Model model) {
+		model.addAttribute("panne",new Panne());
+		return "formPanne";
+	}
+	
+	
+	@RequestMapping(value="/SavePanne" , method=RequestMethod.POST)
+	public String save( Panne p) throws IllegalStateException, IOException {
+		
+		panneRepository.save(p);
+	
+		return "redirect:condAccueil"; // peut etre il y'aura un probleme aprés la creation 
+						//de la fonction qui affcihe les données du cond
+	}
 }

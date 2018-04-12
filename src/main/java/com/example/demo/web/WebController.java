@@ -34,10 +34,7 @@ public class WebController {
         return "login";
     }
 
-		@RequestMapping(value="/cond")
-		public String user(){
-		    return "cond";
-		}
+		
 		
 		@RequestMapping(value="/admin")
 		public String admin(){

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	 layout:decorator="template">
+	 >
 
 <head>
 <meta charset="UTF-8"/>
@@ -19,7 +19,10 @@
 
 <br/>
 <div class="container spacer" >
-	<a th:href="@{form}">Saisir un étudiant</a>
+
+	
+	<a th:href="@{form}"> <img th:src="@{/pageBoutons/add.jpg}" height="50"  width="200"/> </a> 
+	
 </div>
 
 <div class="container spacer">
