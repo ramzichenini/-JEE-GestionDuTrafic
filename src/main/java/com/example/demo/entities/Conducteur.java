@@ -1,15 +1,19 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.util.Collection;
 
+import java.util.Collection;
+import java.util.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import org.joda.time.DateTime;
 
 @Entity
 public class Conducteur  implements Serializable {
@@ -27,7 +31,14 @@ public class Conducteur  implements Serializable {
 	
 	private int nbr; // nombre de notification restant à lire 
 	
-	private Date dateConnexionCond;
+	// booleen pour vérifier si il est deja connecté ou nn
+	
+	private boolean connected=false;
+	
+	@Column(name="dateConnexionCond", length=10000)
+	private DateTime dateConnexionCond;
+	
+	
 	
 	
 	@OneToMany(mappedBy="conducteur", fetch=FetchType.LAZY)
@@ -104,11 +115,11 @@ public class Conducteur  implements Serializable {
 		this.tel = tel;
 	}
 
-	public Date getDateConnexionCond() {
+	public DateTime getDateConnexionCond() {
 		return dateConnexionCond;
 	}
 
-	public void setDateConnexionCond(Date dateConnexionCond) {
+	public void setDateConnexionCond(DateTime dateConnexionCond) {
 		this.dateConnexionCond = dateConnexionCond;
 	}
 
@@ -166,6 +177,14 @@ public class Conducteur  implements Serializable {
 
 	public void setStatistiques(Collection<Statistique> statistiques) {
 		this.statistiques = statistiques;
+	}
+
+	public boolean isConnected() {
+		return connected;
+	}
+
+	public void setConnected(boolean connected) {
+		this.connected = connected;
 	}
 	
 	

@@ -36,7 +36,6 @@ public class GestionDuTraficApplication implements CommandLineRunner{
 	// private ITraficMetier it ; 
 	
 	
-	
 	@Autowired
 	private UsersRepository usersRepository;
 	@Autowired
@@ -62,6 +61,32 @@ public class GestionDuTraficApplication implements CommandLineRunner{
 	@Override
 	public void run(String... arg0) throws Exception {
 	
+		
+		
+		Long id=new Long(1);
+		
+		DateTime d=affectationRepository.findDate1(id);
+		DateTime dd=affectationRepository.findDate2(id);
+		
+		System.out.println("date début : " + d);
+		System.out.println("date fin : " + dd);
+		
+		
+		
+		List<Tournee> L=tourneeRepository.findByDate(id, d, dd);
+		
+		
+		Iterator it=L.iterator();
+		
+		while ( it.hasNext())
+		 {
+			 
+			Tournee t= (Tournee) it.next();
+			 System.out.println(t.getIdTournee() + " "+ t.getTempsDepBar() + " " +t.getTempsDepTer() );
+		 
+		 }
+		
+		
 		
 		/*
 		
@@ -171,23 +196,10 @@ public class GestionDuTraficApplication implements CommandLineRunner{
 		
 		
 	
-		
-		
-		Long id=new Long(1);
-		List<Tournee> L=it.consulterPlan(id);
-		
-		
-		Iterator it=L.iterator();
-		
-		while ( it.hasNext())
-		 {
-			 
-			Tournee t= (Tournee) it.next();
-			 System.out.println(t.getIdTournee() + " "+ t.getTempsDepBar() + " " +t.getTempsDepTer() );
-		 
-		 }
-		
 		*/
+		
+		
+		
 		
 	}
 }

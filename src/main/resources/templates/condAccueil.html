@@ -34,6 +34,7 @@
 				
 				<th><img th:src="@{/boutons/notification.png}" /></th> 
 				
+				
 				<th>
 				<a th:href="@{/Cond/formPanne}">
 				<img th:src="@{/boutons/panne.png}" />
@@ -61,16 +62,41 @@
 		
 		<div  class="col-md-3">	    
 			<div class="panel panel-primary" >
-				<div class="panel-heading">accueil cond</div>
+				<div class="panel-heading">vous êtes : </div>
 				<div class="panel-body">
 				
 				<div>
-					<label>Client:</label>
+					<label>Nom :</label>
+					<label th:text="${conducteur.nomCond}" class="red"></label>
 					
 				</div>
 				
 				<div>
-					<label>Code:</label>
+					<label>Prenom :</label>
+					<label th:text="${conducteur.prenomCond}" class="red"></label>
+					
+				</div>
+				
+				<div>
+					<label>Username :</label>
+					<label th:text="${conducteur.username}" class="red" ></label>
+					
+				</div>
+				
+				<div>
+					<label>ligne :</label>
+					
+					
+				</div>
+				
+				<div>
+					<label>Vous avez commencé depuis  :</label>
+					
+					<label th:text="${#dates.format(conducteur.dateConnexionCond, ' HH:mm')}" class="red" ></label>
+					
+				<!-- 	
+					<label th:text="${#dates.format(conducteur.dateConnexionCond, 'dd MMMMMM yyyy HH:mm')}" class="red" ></label>
+				-->
 					
 				</div>
 				
@@ -116,9 +142,27 @@
 		</div>	
 			
 			
+			<div  class="col-md-3">	
+			<div class="panel panel-primary" >
+				<div class="panel-heading">Déconnexion</div>
+				<div class="panel-body">
+				
+				<div>
+					<a th:href="@{/Cond/logout}">
+				<img th:src="@{/boutonsAdmin/logout.png}" width="100" height="100" />
+				</a>
+					
+				</div>
+				
+				</div>
+			</div>
+			</div>	
+			
+			
+			
 			    
 				    
-		</div>
+</div>
 
 
 

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,14 +30,16 @@ import com.example.demo.entities.Conducteur;
 
 public class WebController {
 	
+	@Autowired
+	private ConducteurRepository conducteurRepository ;
+	
 
 	@RequestMapping(value={"/","home","/login"})
     public String home(){
         return "login";
     }
-
 		
-		
+	
 		@RequestMapping(value="/admin")
 		public String admin(){
 		    return "admin";

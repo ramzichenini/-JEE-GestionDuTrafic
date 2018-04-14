@@ -17,7 +17,7 @@ public interface TourneeRepository extends JpaRepository<Tournee, Long>{
 		
 		//@Query("SELECT a.metro.idMet FROM Affectation a where a.conducteur.idCond =:id") 
 	
-//	@Query("select t FROM Tournee t as t join Metro as m where m.idMet =?1 and t.tempsDepBar between ?2 et ?3")
- //   public List<Tournee> findByDate(Long id, DateTime t1, DateTime t2);
+	@Query("select t FROM Tournee t where t.metro.idMet =?1 and t.tempsDepBar between ?2 and ?3")
+    public List<Tournee> findByDate(Long id, DateTime t1, DateTime t2);
 
 }

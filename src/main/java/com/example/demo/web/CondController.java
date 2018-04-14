@@ -3,13 +3,23 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.IOUtils;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -40,7 +50,24 @@ public class CondController {
 	
 	
 	@RequestMapping(value="/condAccueil")
-	public String user(){
+	public String user(Model model){
+		 Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String name = auth.getName(); 
+	      
+	    Conducteur c= conducteurRepository.findByusername(name);
+	     
+	    boolean connected=c.isConnected();
+	    
+	    if ( ! connected)
+	    {
+	    	 c.setConnected(true);
+	 	    c.setDateConnexionCond(new DateTime());
+	 	    conducteurRepository.save(c);
+	    }
+	    
+	    model.addAttribute("conducteur", c);
+	    
+	    
 	    return "condAccueil";
 	}
 	
@@ -58,7 +85,32 @@ public class CondController {
 		
 		panneRepository.save(p);
 	
-		return "redirect:condAccueil"; // peut etre il y'aura un probleme aprés la creation 
-						//de la fonction qui affcihe les données du cond
+		return "redirect:condAccueil";
 	}
+	
+	
+	
+	
+	@RequestMapping(value="/logout", method = RequestMethod.GET)
+	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    if (auth != null){ 
+	    	Authentication auth1 = SecurityContextHolder.getContext().getAuthentication();
+		    String name = auth1.getName(); 
+		    Conducteur c= conducteurRepository.findByusername(name);
+		    c.setConnected(false);
+		    
+		    conducteurRepository.save(c);
+	    	
+	    	
+	        new SecurityContextLogoutHandler().logout(request, response, auth);
+	        
+	        
+	        
+	    }
+	    return "redirect:/login?logout";
+	}
+	
+	
+	
 }
