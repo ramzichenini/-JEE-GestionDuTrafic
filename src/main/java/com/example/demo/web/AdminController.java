@@ -24,9 +24,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.dao.ConducteurRepository;
+import com.example.demo.dao.MetroRepository;
 import com.example.demo.dao.RolesRepository;
 import com.example.demo.dao.UsersRepository;
 import com.example.demo.entities.Conducteur;
+import com.example.demo.entities.Metro;
 import com.example.demo.entities.Roles;
 import com.example.demo.entities.Users;
 
@@ -40,6 +42,9 @@ public class AdminController {
 	private UsersRepository usersRepository;
 	@Autowired
 	private RolesRepository rolesRepository;
+	
+	@Autowired
+	private MetroRepository metroRepository;
 	
 	private Roles r= new Roles();
 	private Users u= new Users();
@@ -173,7 +178,73 @@ public class AdminController {
 	
 	
 	
+	// les controleurs pour "gestionDesPlan"
 	
+	@RequestMapping(value="/gestionPlan")
+	public String gestionPlan() {
+		
+		return "GesDesPlans";
+	}
+	
+	
+	// les controleurs pour "gérer les metros"
+	
+	@RequestMapping(value="/listeMetros")
+	public String metros(Model model, 
+			@RequestParam(name="page", defaultValue="0") int p,
+			@RequestParam(name="numLigne", defaultValue="1" ) int n) {
+		Page<Metro> pageMetros=metroRepository.findByligne(n,
+				new PageRequest(p, 5));
+		int pageCount=pageMetros.getTotalPages();
+		int[] pages=new int[pageCount];
+		for(int i=0; i<pageCount; i++)
+			pages[i]=i;
+		 
+		model.addAttribute("pages",pages );
+		model.addAttribute("pageMetros", pageMetros);
+		model.addAttribute("pageCourante", p);
+		model.addAttribute("numLigne", n);
+		return "metros";
+	}
+	
+	
+	
+	
+	
+	@RequestMapping(value="/formMet" , method=RequestMethod.GET)
+	public String formMetro(Model model) {
+		model.addAttribute("metro",new Metro());
+		return "formMetro";
+	}
+	
+	
+	
+	
+	@RequestMapping(value="/SaveMetro" , method=RequestMethod.POST)
+	public String save( Metro m )  {
+		
+		
+		
+		metroRepository.save(m);
+		
+		return "redirect:listeMetros";
+	}
+	
+	
+	@RequestMapping(value="/supprimerMet")
+	public String supprimerMet(Long id) {
+		metroRepository.delete(id);
+		return "redirect:listeMetros";
+	}
+	
+	
+	
+	@RequestMapping(value="/editMet")
+	public String editMet(Long id,  Model model) {
+		Metro m=metroRepository.getOne(id);
+		model.addAttribute("metro", m);
+		return "EditMetro";
+	}
 	
 	
 	

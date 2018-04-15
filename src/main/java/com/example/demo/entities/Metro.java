@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 @Entity
 public class Metro implements Serializable{
 	@Id
@@ -21,12 +22,13 @@ public class Metro implements Serializable{
 	private int ligne;
 	private String direction;
 	private String modele;
-	private String stationActuelle;
+
 	private Double x;
 	private Double y;
 	
-	@OneToMany(mappedBy="metro", fetch=FetchType.LAZY)
-	private Collection<Station> stations;
+	 @OneToOne(fetch = FetchType.LAZY)
+	 @JoinColumn(name = "station_id")
+	 private Station station;
 	
 	@OneToMany(mappedBy="metro", fetch=FetchType.LAZY)
 	private Collection<Tournee> tournees;
@@ -40,16 +42,16 @@ public class Metro implements Serializable{
 	}
 
 	public Metro(int numero, int ligne, String direction, String modele, String stationActuelle, Double x, Double y,
-			Collection<Station> stations, Collection<Tournee> tournees, Collection<Affectation> affectations) {
+			Station station, Collection<Tournee> tournees, Collection<Affectation> affectations) {
 		super();
 		this.numero = numero;
 		this.ligne = ligne;
 		this.direction = direction;
 		this.modele = modele;
-		this.stationActuelle = stationActuelle;
+		
 		this.x = x;
 		this.y = y;
-		this.stations = stations;
+		this.station = station;
 		this.tournees = tournees;
 		this.affectations = affectations;
 	}
@@ -60,7 +62,7 @@ public class Metro implements Serializable{
 		this.ligne = ligne;
 		this.direction = direction;
 		this.modele = modele;
-		this.stationActuelle = stationActuelle;
+		
 		this.x = x;
 		this.y = y;
 	}
@@ -105,14 +107,7 @@ public class Metro implements Serializable{
 		this.modele = modele;
 	}
 
-	public String getStationActuelle() {
-		return stationActuelle;
-	}
-
-	public void setStationActuelle(String stationActuelle) {
-		this.stationActuelle = stationActuelle;
-	}
-
+	
 	public Double getX() {
 		return x;
 	}
@@ -129,12 +124,12 @@ public class Metro implements Serializable{
 		this.y = y;
 	}
 
-	public Collection<Station> getStations() {
-		return stations;
+	public Station getStations() {
+		return station;
 	}
 
-	public void setStations(Collection<Station> stations) {
-		this.stations = stations;
+	public void setStations(Station station) {
+		this.station = station;
 	}
 
 	public Collection<Tournee> getTournees() {
