@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	 xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	 >
+
+<head>
+<meta charset="UTF-8"/>
+<title>Liste des etudiants</title>
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}"/>
+	
+	<link rel="stylesheet" type="text/css"
+	href="../static/css/myStyle.css"
+	th:href="@{/css/myStyle.css}"/>	
+	
+</head>
+<body layout:fragment="content">
+
+<br/>
+
+<div  class="col-md-3">	    
+			<div class="panel panel-primary" >
+				<div class="panel-heading">le metro choisi  </div>
+				<div class="panel-body">
+				
+				
+				
+				<div>
+					<label>Numéro :</label>
+					<label th:text="${metro.numero}" class="red"></label>
+					
+				</div>
+				<div>
+					<label>Ligne :</label>
+					<label th:text="${metro.ligne}"  class="red"></label>
+					
+				</div>
+				<div>
+					<label>modèle :</label>
+					<label th:text="${metro.modele}"  class="red"></label>
+					
+				</div>
+				
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				
+				
+				
+				</div>
+			</div>
+		</div>	
+
+<div  class="col-md-9">	
+			<div class="panel panel-primary" >
+				<div class="panel-heading">veuillez choisir un métro :</div>
+				<div class="panel-body">
+				
+				<!-- form ajout -->
+				
+				<div class="panel panel-default">
+	<div class="panel-heading">Saisie d'un metro</div>
+	<div class="panel-body">
+		<form th:action="@{SaveTournee(id=${metro.idMet})}" method="post" th:object="${tournee}"
+		 enctype="multipart/form-data">
+			<div class="form-group">
+				<label class="control-label">temps de départ de barcelona:</label>
+				<input th:text="${#joda.mediumDate(date)}" th:field="*{tempsDepBar}" />
+				
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label">temps de départ de terminus:</label>
+				<input th:text="${#joda.mediumDate(date)}" th:field="*{tempsDepTer}" class="form-control"/>
+				
+			</div>
+			
+			
+			
+			
+			
+			<div>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</div>
+		</form>
+	</div>
+</div>
+				
+				
+				
+				<!-- fin  form ajout -->
+				
+			
+				</div>
+			</div>
+</div>	
+
+
+
+</body>
+</html>

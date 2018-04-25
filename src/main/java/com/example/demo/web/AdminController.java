@@ -26,10 +26,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.demo.dao.ConducteurRepository;
 import com.example.demo.dao.MetroRepository;
 import com.example.demo.dao.RolesRepository;
+import com.example.demo.dao.TourneeRepository;
 import com.example.demo.dao.UsersRepository;
 import com.example.demo.entities.Conducteur;
 import com.example.demo.entities.Metro;
 import com.example.demo.entities.Roles;
+import com.example.demo.entities.Tournee;
 import com.example.demo.entities.Users;
 
 
@@ -45,6 +47,9 @@ public class AdminController {
 	
 	@Autowired
 	private MetroRepository metroRepository;
+	
+	@Autowired
+	private TourneeRepository tourneeRepository;
 	
 	private Roles r= new Roles();
 	private Users u= new Users();
@@ -179,6 +184,9 @@ public class AdminController {
 	
 	
 	// les controleurs pour "gestionDesPlan"
+	//
+	//
+	//
 	
 	@RequestMapping(value="/gestionPlan")
 	public String gestionPlan() {
@@ -188,6 +196,10 @@ public class AdminController {
 	
 	
 	// les controleurs pour "gérer les metros"
+	//
+	//
+	//
+	//
 	
 	@RequestMapping(value="/listeMetros")
 	public String metros(Model model, 
@@ -246,8 +258,108 @@ public class AdminController {
 		return "EditMetro";
 	}
 	
+	@RequestMapping(value="/UpdateMetro" , method=RequestMethod.POST)
+	public String update( Metro m) throws IllegalStateException, IOException {
+		
+		metroRepository.save(m);
+		
+		return "redirect:listeMetros";
+	}
+		
+	
+	// les controleurs pour gérer les tournée 
+	//
+	//
+	//
+	
+	@RequestMapping(value="/listeMetrosTr") // pour afficher la liste de metro dans la page tounée
+	public String metroTr(Model model, 
+			@RequestParam(name="page", defaultValue="0") int p,
+			@RequestParam(name="numLigne", defaultValue="1" ) int n) {
+		Page<Metro> pageMetros=metroRepository.findByligne(n,
+				new PageRequest(p, 5));
+		int pageCount=pageMetros.getTotalPages();
+		int[] pages=new int[pageCount];
+		for(int i=0; i<pageCount; i++)
+			pages[i]=i;
+		 
+		model.addAttribute("pages",pages );
+		model.addAttribute("pageMetros", pageMetros);
+		model.addAttribute("pageCourante", p);
+		model.addAttribute("numLigne", n);
+		return "tourneePage1";
+	}
+	
+	
+	@RequestMapping(value="/choixMetTr")
+	public String choixMetTr(Long id,Model model, 
+			@RequestParam(name="page", defaultValue="0") int p) {
+		
+		//pagination
+		Page<Tournee> pageTournees=tourneeRepository.listTournee(id,
+				new PageRequest(p, 5));
+		int pageCount=pageTournees.getTotalPages();
+		int[] pages=new int[pageCount];
+		for(int i=0; i<pageCount; i++)
+			pages[i]=i;
+		 
+		model.addAttribute("pages",pages );
+		model.addAttribute("pageTournees", pageTournees);
+		model.addAttribute("pageCourante", p);
+		
+				Metro m=metroRepository.getOne(id);
+				model.addAttribute("metro", m);
+			
+				return "tourneePage2";
+	}
+		
+
+	@RequestMapping(value="/formTourn" , method=RequestMethod.GET)
+	public String formTourn(Long id,Model model) {
+		model.addAttribute("tournee",new Tournee());
+		Metro m=metroRepository.getOne(id);
+		model.addAttribute("metro", m);
+		
+		return "tourneePage3";
+	}
 	
 	
 	
+	@RequestMapping(value="/SaveTournee" , method=RequestMethod.POST)
+	public String SaveTournee(Long id, Tournee t , Model model)  {
+		
+		Metro m=metroRepository.getOne(id);
+		t.setMetro(m);
+		
+		tourneeRepository.save(t);
+		
+		model.addAttribute("metro", m);
+		
+		return "redirect:choixMetTr(id)";
+	}
+	
+	
+	@RequestMapping(value="/supprimerTourn")
+	public String supprimerTourn(Long id) {
+		tourneeRepository.delete(id);
+		return "redirect:choixMetTr(id)";
+	}
+	
+	
+	
+	@RequestMapping(value="/editTourn")
+	public String editTourn(Long id,  Model model) {
+		Metro m=metroRepository.getOne(id);
+		model.addAttribute("metro", m);
+		return "EditMetro";
+	}
+	
+	@RequestMapping(value="/UpdateTourn" , method=RequestMethod.POST)
+	public String UpdateTourn( Metro m) throws IllegalStateException, IOException {
+		
+		metroRepository.save(m);
+		
+		return "redirect:listeMetros";
+	}
 
 }

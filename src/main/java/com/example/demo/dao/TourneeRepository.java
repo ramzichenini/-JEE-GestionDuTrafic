@@ -4,8 +4,12 @@ import java.sql.Date;
 import java.util.List;
 
 import org.joda.time.DateTime;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 
 import com.example.demo.entities.Tournee;
 
@@ -19,5 +23,8 @@ public interface TourneeRepository extends JpaRepository<Tournee, Long>{
 	
 	@Query("select t FROM Tournee t where t.metro.idMet =?1 and t.tempsDepBar between ?2 and ?3")
     public List<Tournee> findByDate(Long id, DateTime t1, DateTime t2);
+	
+	@Query("select t FROM Tournee t where t.metro.idMet =:x")
+	public Page<Tournee> listTournee(@Param("x") Long id, Pageable pageable) ;
 
 }

@@ -19,64 +19,43 @@
 <div class="col-md-6 col-sm-6 col-xs-12 spacer col-md-offset-3">
 
 <div class="panel panel-default">
-	<div class="panel-heading">Saisie d'un conducteur</div>
+	<div class="panel-heading">Saisie d'un metro</div>
 	<div class="panel-body">
-		<form th:action="@{UpdateConducteur}" method="post" th:object="${conducteur}"
-		 enctype="multipart/form-data">
+		<form th:action="@{UpdateMetro}" method="post" th:object="${metro}" >
 		 
 		 	 <div class="form-group">
 				<label class="control-label">ID:</label>
-				<input type="text" th:field="*{idCond}" class="form-control"  readonly="readonly"/>
+				<input type="text" th:field="*{idMet}" class="form-control"  readonly="readonly"/>
 				
 			</div>
 		 
 		 
 			<div class="form-group">
-				<label class="control-label">Nom:</label>
-				<input type="text" th:field="*{nomCond}" class="form-control"/>
+				<label class="control-label">Ligne:</label>
+				<input type="text" th:field="*{ligne}" class="form-control"/>
 				
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label">Prenom:</label>
-				<input type="text" th:field="*{prenomCond}" class="form-control"/>
+				<label class="control-label">Numéro:</label>
+				<input type="text" th:field="*{numero}" class="form-control"/>
 				
 			</div>
 			
 			<div class="form-group">
-				<label class="control-label">N° téléphone:</label>
-				<input type="text" th:field="*{tel}" class="form-control"/>
-				
-			</div>
-			
-			
-			<div class="form-group">
-				<label class="control-label">username:</label>
-				<input type="text" th:field="*{username}" class="form-control"/>
+				<label class="control-label">Direction:</label>
+				<input type="text" th:field="*{direction}" class="form-control"/>
 				
 			</div>
 			
 			
 			<div class="form-group">
-				<label class="control-label">password:</label>
-				<input type="text" th:field="*{password}" class="form-control"/>
+				<label class="control-label">Modele:</label>
+				<input type="text" th:field="*{modele}" class="form-control"/>
 				
 			</div>
 			
 			
-			<div class="form-group">
-				<label class="control-label">En congé:</label>
-				<input type="text" th:field="*{EnConge}"  class="form-control"/>
-				
-			</div>
-			
-			
-			
-			<div class="form-group">
-				<label class="control-label">Photo:</label>
-				<input type="file" name="picture" class="form-control"/>
-				<img class="img-circle" th:src="@{getPhoto(id=${conducteur.idCond})}" width="100" height="100" />
-			</div>
 			
 			<div>
 				<button type="submit" class="btn btn-primary">Save</button>
